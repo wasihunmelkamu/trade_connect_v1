@@ -37,7 +37,7 @@ export const isAuthenticated = async () => {
     if (!token) return false
 
     try {
-        const isValid = await verifyToken(token)
+        await verifyToken(token)
         return true
     } catch (error) {
         console.log({ error })

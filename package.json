@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint", 
+    "app": "pnpm build && pnpm start",
+    "deploy": "pnpx convex deploy --cmd 'npm run app'"
   },
   "dependencies": {
     "@auth/core": "0.37.0",

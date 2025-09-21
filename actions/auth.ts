@@ -103,6 +103,7 @@ export const signUpAction = async ({ name, email, password }: SignUpAction) =>
 
 export const signInAction = async ({ email, password }: Omit<SignUpAction, "name">) =>
     serverActionWrapper(async () => {
+        console.log({ email, password })
         const res = await fetchQuery(api.users.getUserByEmail, {
             email
         })

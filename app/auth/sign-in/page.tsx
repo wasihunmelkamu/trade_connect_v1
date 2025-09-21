@@ -35,14 +35,14 @@ type SigninSchema = z.infer<typeof signinSchema>;
 
 export default function SigninPage() {
 
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-  // const [pending, setPending] = useState(false)
-  // const [isGettingProfile, setIsGettingProfile] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [pending, setPending] = useState(false)
+  const [isGettingProfile, setIsGettingProfile] = useState(false)
 
-  // const user = useQuery(api.users.getUserByEmail, email ? { email: email } : "skip")
+  const user = useQuery(api.users.getUserByEmail, email ? { email: email } : "skip")
 
-  // const userProfile = useQuery(api.users.getUser, isGettingProfile && user?._id ? { userId: user._id } : "skip")
+  const userProfile = useQuery(api.users.getUser, isGettingProfile && user?._id ? { userId: user._id } : "skip")
 
   const {
     register,
@@ -59,109 +59,113 @@ export default function SigninPage() {
   const router = useRouter();
   const setAuthUser = useSetAuthUser()
 
-  // const signInHandler = async () => {
-  //   if (!email) {
-  //     setPending(false)
-  //     return;
-  //   }
-
-  //   if (!user) {
-  //     toast.error("User not found, please sign up to continue.")
-  //     setPending(false)
-  //     return;
-  //   }
-
-  //   setPending(true)
-  //   const response = await signInAction2({
-  //     userId: user._id,
-  //     role: user.role,
-  //     hashedPassword: user.password,
-  //     password: password,
-  //   })
-
-  //   if (!response.success) {
-  //     setPending(false)
-  //     toast.error(response.message)
-  //   }
-
-
-  //   // Get profile
-  //   setIsGettingProfile(true)
-
-  //   console.log({ response })
-  // }
-
-
-  // useEffect(() => {
-  //   if (isGettingProfile) {
-  //     return;
-  //   }
-
-  // }, [isGettingProfile])
-
-  // useEffect(() => {
-  //   signInHandler()
-  // }, [user])
-
-
-  // useEffect(() => {
-  //   if (!userProfile || !user) {
-  //     return;
-  //   }
-
-  //   setAuthUser({
-  //     id: user._id,
-  //     name: user.name,
-  //     displayName: userProfile.displayName || "",
-  //     email: user.email,
-  //     createdAt: userProfile.createdAt,
-  //     updatedAt: userProfile.updatedAt,
-  //     isVerified: userProfile.isVerified || false,
-  //     role: user.role
-  //   })
-  //   setPending(false)
-  //   toast.success("✅ Welcome back! Glad to see you.");
-  //   router.push("/dashboard");
-  // }, [userProfile])
-
-  // const onSubmit = async (data: SigninSchema) => {
-  //   setPending(true)
-  //   setEmail(data.email)
-  //   setPassword(data.password)
-  // };
-
-  const onSubmit = async (data: SigninSchema) => {
-    const res = await signInAction(data);
-
-    if (!res.success) {
-      toast.error(`🚫 ${res.message}`);
+  const signInHandler = async () => {
+    if (!email) {
+      setPending(false)
       return;
     }
 
-    const user = res.data.user
-
     if (!user) {
-      toast.error(`🚫 User data not found.`);
+      toast.error("User not found, please sign up to continue.")
+      setPending(false)
+      return;
+    }
+
+    setPending(true)
+    const response = await signInAction2({
+      userId: user._id,
+      role: user.role,
+      hashedPassword: user.password,
+      password: password,
+    })
+
+    if (!response.success) {
+      setPending(false)
+      toast.error(response.message)
+    }
+
+
+    // Get profile
+    setIsGettingProfile(true)
+
+    console.log({ response })
+  }
+
+
+  useEffect(() => {
+    if (isGettingProfile) {
+      return;
+    }
+
+  }, [isGettingProfile])
+
+  useEffect(() => {
+    signInHandler()
+  }, [user])
+
+
+  useEffect(() => {
+    if (!userProfile || !user) {
       return;
     }
 
     setAuthUser({
       id: user._id,
       name: user.name,
-      displayName: user.displayName || "",
+      displayName: userProfile.displayName || "",
       email: user.email,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-      isVerified: user.isVerified || false,
+      createdAt: userProfile.createdAt,
+      updatedAt: userProfile.updatedAt,
+      isVerified: userProfile.isVerified || false,
       role: user.role
     })
+    setPending(false)
     toast.success("✅ Welcome back! Glad to see you.");
     router.push("/dashboard");
+  }, [userProfile])
+
+  const onSubmit = async (data: SigninSchema) => {
+    setPending(true)
+    setEmail(data.email)
+    setPassword(data.password)
   };
+
+  // const onSubmit = async (data: SigninSchema) => {
+  //   if (!email) {
+  //     setEmail(data.email)
+  //     return;
+  //   }
+  //   const res = await signInAction(data);
+
+  //   if (!res.success) {
+  //     toast.error(`🚫 ${res.message}`);
+  //     return;
+  //   }
+
+  //   const user = res.data.user
+
+  //   if (!user) {
+  //     toast.error(`🚫 User data not found.`);
+  //     return;
+  //   }
+
+  //   setAuthUser({
+  //     id: user._id,
+  //     name: user.name,
+  //     displayName: user.displayName || "",
+  //     email: user.email,
+  //     createdAt: user.createdAt,
+  //     updatedAt: user.updatedAt,
+  //     isVerified: user.isVerified || false,
+  //     role: user.role
+  //   })
+  //   toast.success("✅ Welcome back! Glad to see you.");
+  //   router.push("/dashboard");
+  // };
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background p-4">
-      {/* <DebugJson data={{ user }} /> */}
+      <DebugJson data={{ user }} />
       <Card className="w-full max-w-sm border-none">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
           <CardHeader className="text-center">
