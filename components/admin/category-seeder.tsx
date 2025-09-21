@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Package } from "lucide-react"
+import { useAuthUser } from "@/contexts/AuthGuard"
 
 export function CategorySeeder() {
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+
+  const authUser = useAuthUser()
 
   const seedCategories = useMutation(api.categories.seedCategories)
 
@@ -20,8 +23,13 @@ export function CategorySeeder() {
     setMessage(null)
     setError(null)
 
+    if(!authUser) {
+      alert("User id not provided")
+      return;
+    }
+
     try {
-      const result = await seedCategories({})
+      const result = await seedCategories({userId: authUser.id})
       setMessage(result)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to seed categories")

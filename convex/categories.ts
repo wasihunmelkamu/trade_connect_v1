@@ -54,9 +54,9 @@ export const createCategory = mutation({
 
 // Seed default categories
 export const seedCategories = mutation({
-  args: {},
-  handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx)
+  args: {userId: v.id("users")},
+  handler: async (ctx, {userId}) => {
+
     if (!userId) throw new Error("Not authenticated")
 
     const userProfile = await ctx.db
