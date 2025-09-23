@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { ArrowRight, Search, Users, Package, MessageSquare, Star, TrendingUp, Shield, Zap } from "lucide-react"
+import { ArrowRight, Users, Package, MessageSquare, Star, TrendingUp, Shield, Zap } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function LandingPage() {
   return (
@@ -13,33 +14,37 @@ export default function LandingPage() {
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Package className="h-5 w-5 text-primary-foreground" />
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center">
+                  <Image src="/logo.png" alt="MarketConnect Logo" width={40} height={40} className="h-12 w-12" />
                 </div>
                 <span className="font-bold text-xl text-foreground">MarketConnect</span>
               </div>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link href="/marketplace" className="text-muted-foreground hover:text-foreground transition-colors">
                 Marketplace
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
                 Contact
-              </a>
+              </Link>
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
-                Sign In
-              </Button>
-              <Button size="sm">Get Started</Button>
+              <Link href="/auth/sign-in">
+                <Button variant="ghost" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/get-started">
+                <Button size="sm">Get Started</Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -63,13 +68,17 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" className="text-lg px-8">
-                Start Selling
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                Browse Products
-              </Button>
+              <Link href="/sell">
+                <Button size="lg" className="text-lg px-8">
+                  Start Selling
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/marketplace">
+                <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+                  Browse Products
+                </Button>
+              </Link>
             </div>
 
             {/* Search Bar */}
@@ -195,16 +204,20 @@ export default function LandingPage() {
             Join thousands of suppliers and consumers who are already growing their business on MarketConnect.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8">
-              Join as Supplier
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent"
-            >
-              Join as Consumer
-            </Button>
+            <Link href="/signup/supplier">
+              <Button size="lg" variant="secondary" className="text-lg px-8">
+                Join as Supplier
+              </Button>
+            </Link>
+            <Link href="/signup/consumer">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
+              >
+                Join as Consumer
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -215,8 +228,8 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Package className="h-5 w-5 text-primary-foreground" />
+                <div className="h-8 w-8 rounded-lg flex items-center justify-center">
+                  <Image src="/logo.png" alt="MarketConnect Logo" width={24} height={24} className="h-6 w-6" />
                 </div>
                 <span className="font-bold text-xl text-foreground">MarketConnect</span>
               </div>
@@ -229,24 +242,24 @@ export default function LandingPage() {
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/marketplace" className="hover:text-foreground transition-colors">
                     Marketplace
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/categories" className="hover:text-foreground transition-colors">
                     Categories
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/search" className="hover:text-foreground transition-colors">
                     Search
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/mobile-app" className="hover:text-foreground transition-colors">
                     Mobile App
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -255,24 +268,24 @@ export default function LandingPage() {
               <h3 className="font-semibold text-foreground mb-4">Support</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/help" className="hover:text-foreground transition-colors">
                     Help Center
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/contact" className="hover:text-foreground transition-colors">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/safety" className="hover:text-foreground transition-colors">
                     Safety
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/guidelines" className="hover:text-foreground transition-colors">
                     Guidelines
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -281,24 +294,24 @@ export default function LandingPage() {
               <h3 className="font-semibold text-foreground mb-4">Company</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/about" className="hover:text-foreground transition-colors">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/careers" className="hover:text-foreground transition-colors">
                     Careers
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/press" className="hover:text-foreground transition-colors">
                     Press
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/blog" className="hover:text-foreground transition-colors">
                     Blog
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
