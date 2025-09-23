@@ -1,11 +1,18 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Users, Package, MessageSquare, Star, TrendingUp, Shield, Zap } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { StatsSection } from "@/components/StatsSection"
+import { AuthNav } from "@/components/auth-nav"
+import { useAuth } from "@/lib/auth-context"
 
-export default function LandingPage() {
+export default function HomePage() {
+  const { user, isLoading } = useAuth()
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -15,7 +22,7 @@ export default function LandingPage() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <div className="h-8 w-8 rounded-lg flex items-center justify-center">
-                  <Image src="/logo.png" alt="MarketConnect Logo" width={40} height={40} className="h-12 w-12" />
+                  <Image src="/logo.png" alt="MarketConnect Logo" width={24} height={24} className="h-6 w-6" />
                 </div>
                 <span className="font-bold text-xl text-foreground">MarketConnect</span>
               </div>
@@ -36,16 +43,7 @@ export default function LandingPage() {
               </Link>
             </nav>
 
-            <div className="flex items-center space-x-4">
-              <Link href="/auth/sign-in">
-                <Button variant="ghost" size="sm">
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/get-started">
-                <Button size="sm">Get Started</Button>
-              </Link>
-            </div>
+            <AuthNav />
           </div>
         </div>
       </header>
@@ -68,24 +66,51 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href="/sell">
-                <Button size="lg" className="text-lg px-8">
-                  Start Selling
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="/marketplace">
-                <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                  Browse Products
-                </Button>
-              </Link>
+              {!isLoading && (
+                <>
+                  {user ? (
+                    // Authenticated user buttons
+                    <>
+                      {user.type === "supplier" ? (
+                        <Link href="/sell">
+                          <Button size="lg" className="text-lg px-8">
+                            Go to Dashboard
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Link href="/auth/sign-in?redirect=/sell">
+                          <Button size="lg" className="text-lg px-8">
+                            Start Selling
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </Button>
+                        </Link>
+                      )}
+                      <Link href="/marketplace">
+                        <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+                          Browse Products
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    // Non-authenticated user buttons
+                    <>
+                      <Link href="/auth/sign-in?redirect=/sell">
+                        <Button size="lg" className="text-lg px-8">
+                          Start Selling
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                      <Link href="/marketplace">
+                        <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+                          Browse Products
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+                </>
+              )}
             </div>
-
-            {/* Search Bar */}
-            {/* <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input placeholder="Search products, suppliers, or demands..." className="pl-10 h-12 text-base" />
-            </div> */}
           </div>
         </div>
       </section>
@@ -177,24 +202,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">10K+</div>
-              <div className="text-lg text-muted-foreground">Active Suppliers</div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-secondary mb-2">50K+</div>
-              <div className="text-lg text-muted-foreground">Products Listed</div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-accent mb-2">100K+</div>
-              <div className="text-lg text-muted-foreground">Successful Connections</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <StatsSection />
 
       {/* CTA Section */}
       <section className="py-20 bg-primary">
@@ -204,20 +212,47 @@ export default function LandingPage() {
             Join thousands of suppliers and consumers who are already growing their business on MarketConnect.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/signup/supplier">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                Join as Supplier
-              </Button>
-            </Link>
-            <Link href="/signup/consumer">
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
-              >
-                Join as Consumer
-              </Button>
-            </Link>
+            {!isLoading && (
+              <>
+                {user ? (
+                  // Authenticated user - show profile or dashboard links
+                  <>
+                    <Link href={user.type === "supplier" ? "/sell" : "/join/supplier"}>
+                      <Button size="lg" variant="secondary" className="text-lg px-8">
+                        {user.type === "supplier" ? "Go to Dashboard" : "Become a Supplier"}
+                      </Button>
+                    </Link>
+                    <Link href="/marketplace">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
+                      >
+                        Browse Products
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  // Non-authenticated user - show signup buttons
+                  <>
+                    <Link href="/auth/sign-up?type=supplier">
+                      <Button size="lg" variant="secondary" className="text-lg px-8">
+                        Join as Supplier
+                      </Button>
+                    </Link>
+                    <Link href="/auth/sign-up?type=consumer">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
+                      >
+                        Join as Consumer
+                      </Button>
+                    </Link>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -253,12 +288,22 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <Link href="/search" className="hover:text-foreground transition-colors">
-                    Search
+                    Advanced Search
                   </Link>
                 </li>
                 <li>
                   <Link href="/mobile-app" className="hover:text-foreground transition-colors">
                     Mobile App
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/api" className="hover:text-foreground transition-colors">
+                    API
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/developers" className="hover:text-foreground transition-colors">
+                    Developers
                   </Link>
                 </li>
               </ul>
@@ -279,12 +324,22 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <Link href="/safety" className="hover:text-foreground transition-colors">
-                    Safety
+                    Safety & Security
                   </Link>
                 </li>
                 <li>
                   <Link href="/guidelines" className="hover:text-foreground transition-colors">
                     Guidelines
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/report" className="hover:text-foreground transition-colors">
+                    Report Issue
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/dispute-resolution" className="hover:text-foreground transition-colors">
+                    Dispute Resolution
                   </Link>
                 </li>
               </ul>
@@ -305,7 +360,7 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <Link href="/press" className="hover:text-foreground transition-colors">
-                    Press
+                    Press & Media
                   </Link>
                 </li>
                 <li>
@@ -313,12 +368,39 @@ export default function LandingPage() {
                     Blog
                   </Link>
                 </li>
+                <li>
+                  <Link href="/privacy" className="hover:text-foreground transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-foreground transition-colors">
+                    Terms of Service
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 MarketConnect. All rights reserved.</p>
+          <div className="border-t border-border mt-8 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="text-center md:text-left text-muted-foreground">
+                <p>&copy; 2025 MarketConnect. All rights reserved.</p>
+                <p className="text-sm mt-1">Secure trading platform with SSL encryption</p>
+              </div>
+              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                <span className="flex items-center">
+                  <Shield className="h-4 w-4 mr-1 text-green-600" />
+                  SSL Secured
+                </span>
+                <Link href="/compliance" className="hover:text-foreground transition-colors">
+                  Compliance
+                </Link>
+                <Link href="/accessibility" className="hover:text-foreground transition-colors">
+                  Accessibility
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
