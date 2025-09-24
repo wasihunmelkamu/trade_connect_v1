@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{
       protocol: "https",
-      hostname: "deafening-cardinal-318.convex.cloud",
+      hostname: "mild-bison-734.convex.cloud",
       port: "",
       pathname: "/api/storage/**",
     }]
