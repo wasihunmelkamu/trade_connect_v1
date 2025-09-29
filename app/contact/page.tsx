@@ -27,9 +27,7 @@ export default function ContactPage() {
               <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
-              <Link href="/marketplace" className="text-muted-foreground hover:text-foreground transition-colors">
-                Marketplace
-              </Link>
+            
               <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
               </Link>

@@ -25,9 +25,7 @@ export default function AboutPage() {
               <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
-              <Link href="/marketplace" className="text-muted-foreground hover:text-foreground transition-colors">
-                Marketplace
-              </Link>
+             
               <Link href="/about" className="text-foreground font-medium">
                 About
               </Link>
