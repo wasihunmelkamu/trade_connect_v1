@@ -194,26 +194,14 @@ export default function AboutPage() {
             <div>
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li>
-                  <Link href="/marketplace" className="hover:text-foreground transition-colors">
-                    Marketplace
-                  </Link>
-                </li>
+                
                 <li>
                   <Link href="/categories" className="hover:text-foreground transition-colors">
                     Categories
                   </Link>
                 </li>
-                <li>
-                  <Link href="/search" className="hover:text-foreground transition-colors">
-                    Search
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/mobile-app" className="hover:text-foreground transition-colors">
-                    Mobile App
-                  </Link>
-                </li>
+               
+        
               </ul>
             </div>
 
@@ -230,16 +218,8 @@ export default function AboutPage() {
                     Contact Us
                   </Link>
                 </li>
-                <li>
-                  <Link href="/safety" className="hover:text-foreground transition-colors">
-                    Safety
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/guidelines" className="hover:text-foreground transition-colors">
-                    Guidelines
-                  </Link>
-                </li>
+                
+               
               </ul>
             </div>
 
@@ -256,16 +236,7 @@ export default function AboutPage() {
                     Careers
                   </Link>
                 </li>
-                <li>
-                  <Link href="/press" className="hover:text-foreground transition-colors">
-                    Press
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-foreground transition-colors">
-                    Blog
-                  </Link>
-                </li>
+               
               </ul>
             </div>
           </div>

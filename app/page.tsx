@@ -32,9 +32,7 @@ export default function HomePage() {
               <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
-              <Link href="/marketplace" className="text-muted-foreground hover:text-foreground transition-colors">
-                Marketplace
-              </Link>
+              
               <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
               </Link>
@@ -205,57 +203,7 @@ export default function HomePage() {
       <StatsSection />
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">Ready to Start Trading?</h2>
-          <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of suppliers and consumers who are already growing their business on MarketConnect.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {!isLoading && (
-              <>
-                {user ? (
-                  // Authenticated user - show profile or dashboard links
-                  <>
-                    <Link href={user.type === "supplier" ? "/sell" : "/join/supplier"}>
-                      <Button size="lg" variant="secondary" className="text-lg px-8">
-                        {user.type === "supplier" ? "Go to Dashboard" : "Become a Supplier"}
-                      </Button>
-                    </Link>
-                    <Link href="/marketplace">
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
-                      >
-                        Browse Products
-                      </Button>
-                    </Link>
-                  </>
-                ) : (
-                  // Non-authenticated user - show signup buttons
-                  <>
-                    <Link href="/auth/sign-up?type=supplier">
-                      <Button size="lg" variant="secondary" className="text-lg px-8">
-                        Join as Supplier
-                      </Button>
-                    </Link>
-                    <Link href="/auth/sign-up?type=consumer">
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="text-lg px-8 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
-                      >
-                        Join as Consumer
-                      </Button>
-                    </Link>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      </section>
+     
 
       {/* Footer */}
       <footer className="py-12 bg-background border-t border-border">
@@ -276,34 +224,10 @@ export default function HomePage() {
             <div>
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li>
-                  <Link href="/marketplace" className="hover:text-foreground transition-colors">
-                    Marketplace
-                  </Link>
-                </li>
+                
                 <li>
                   <Link href="/categories" className="hover:text-foreground transition-colors">
                     Categories
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search" className="hover:text-foreground transition-colors">
-                    Advanced Search
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/mobile-app" className="hover:text-foreground transition-colors">
-                    Mobile App
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/api" className="hover:text-foreground transition-colors">
-                    API
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/developers" className="hover:text-foreground transition-colors">
-                    Developers
                   </Link>
                 </li>
               </ul>
@@ -322,26 +246,7 @@ export default function HomePage() {
                     Contact Us
                   </Link>
                 </li>
-                <li>
-                  <Link href="/safety" className="hover:text-foreground transition-colors">
-                    Safety & Security
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/guidelines" className="hover:text-foreground transition-colors">
-                    Guidelines
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/report" className="hover:text-foreground transition-colors">
-                    Report Issue
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/dispute-resolution" className="hover:text-foreground transition-colors">
-                    Dispute Resolution
-                  </Link>
-                </li>
+                
               </ul>
             </div>
 
@@ -356,26 +261,6 @@ export default function HomePage() {
                 <li>
                   <Link href="/careers" className="hover:text-foreground transition-colors">
                     Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/press" className="hover:text-foreground transition-colors">
-                    Press & Media
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-foreground transition-colors">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-foreground transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="hover:text-foreground transition-colors">
-                    Terms of Service
                   </Link>
                 </li>
               </ul>

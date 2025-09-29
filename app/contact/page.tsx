@@ -120,7 +120,6 @@ export default function ContactPage() {
                 </Button>
               </CardContent>
             </Card>
-
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
@@ -129,7 +128,6 @@ export default function ContactPage() {
                   Reach out to us through any of these channels. We're here to help you succeed.
                 </p>
               </div>
-
               <div className="space-y-6">
                 <Card className="border-border">
                   <CardContent className="flex items-center space-x-4 p-6">
@@ -142,7 +140,6 @@ export default function ContactPage() {
                     </div>
                   </CardContent>
                 </Card>
-
                 <Card className="border-border">
                   <CardContent className="flex items-center space-x-4 p-6">
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center">
