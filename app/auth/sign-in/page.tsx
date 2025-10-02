@@ -24,7 +24,6 @@ import { useAuthUser, useSetAuthUser } from "@/contexts/AuthGuard";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import DebugJson from "@/components/debugJSON";
-
 // ✅ Sign-in schema
 const signinSchema = z.object({
   email: z.email("Please enter a valid email"),

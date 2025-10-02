@@ -68,11 +68,7 @@ export const seedCategories = mutation({
       throw new Error("Not authorized")
     }
 
-    const existingCategories = await ctx.db.query("categories").collect()
-    if (existingCategories.length > 0) {
-      return "Categories already exist"
-    }
-
+    
     const defaultCategories = [
       { name: "Electronics", slug: "electronics", icon: "Smartphone", color: "#3B82F6" },
       { name: "Fashion", slug: "fashion", icon: "Shirt", color: "#EC4899" },
@@ -97,3 +93,6 @@ export const seedCategories = mutation({
     return "Categories seeded successfully"
   },
 })
+ 
+
+
