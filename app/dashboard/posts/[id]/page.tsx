@@ -1,52 +1,65 @@
 // app/dashboard/posts/[id]/page.tsx (or wherever your PostPage is)
-"use client"
-
-import { useEffect } from "react"
-import { useQuery, useMutation } from "convex/react"
-import { api } from "@/convex/_generated/api"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { LikeButton } from "@/components/interactions/like-button"
-import { FavoriteButton } from "@/components/interactions/favorite-button"
-import { CommentSection } from "@/components/interactions/comment-section"
-import { Loader2, Eye, MapPin, Calendar, ArrowLeft, ImageOff } from "lucide-react"
-import { useParams, useRouter } from "next/navigation"
-import type { Id } from "@/convex/_generated/dataModel"
-import { useAuthUser } from "@/contexts/AuthGuard"
-import { useFileUrls } from "@/hooks/useFileUrls"
-import Image from "next/image"
-import { Skeleton } from "@/components/ui/skeleton"
-import { MarkdownRenderer } from "@/components/markdownRenderer"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+"use client";
+import DebugJson from "@/components/debugJSON";
+import { useEffect } from "react";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LikeButton } from "@/components/interactions/like-button";
+import { FavoriteButton } from "@/components/interactions/favorite-button";
+import { CommentSection } from "@/components/interactions/comment-section";
+import {
+  Loader2,
+  Eye,
+  MapPin,
+  Calendar,
+  ArrowLeft,
+  ImageOff,
+} from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import type { Id } from "@/convex/_generated/dataModel";
+import { useAuthUser } from "@/contexts/AuthGuard";
+import { useFileUrls } from "@/hooks/useFileUrls";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
+import { MarkdownRenderer } from "@/components/markdownRenderer";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function PostPage() {
-  const router = useRouter()
-  const params = useParams()
-  const postId = params.id as Id<"posts">
-  const user = useAuthUser()
-  const post = useQuery(api.posts.getPost, { postId })
-  const trackView = useMutation(api.interactions.trackView)
+  const router = useRouter();
+  const params = useParams();
+  const postId = params.id as Id<"posts">;
+  const user = useAuthUser();
+  const post = useQuery(api.posts.getPost, { postId });
+  const trackView = useMutation(api.interactions.trackView);
 
   // Get image URLs if images exist
-  const hasImages = post?.images && post.images.length > 0
-  const firstImageId = hasImages ? post.images[0].storageId : null
+  const hasImages = post?.images && post.images.length > 0;
+  const firstImageId = hasImages ? post.images[0].storageId : null;
 
-  const files = useFileUrls(firstImageId ? [firstImageId] : [])
+  const files = useFileUrls(firstImageId ? [firstImageId] : []);
 
-  const imageUrl = firstImageId ? files?.[firstImageId] : null
+  const imageUrl = firstImageId ? files?.[firstImageId] : null;
 
-  const imagesObj = useFileUrls(post?.images.map(i => i.storageId) || [])
+  const imagesObj = useFileUrls(post?.images.map((i) => i.storageId) || []);
 
-  const imageUrls = imagesObj ? Object.values(imagesObj) : []
+  const imageUrls = imagesObj ? Object.values(imagesObj) : [];
 
   // Track view when post loads
   useEffect(() => {
     if (post && user) {
-      trackView({ postId, userId: user.id })
+      trackView({ postId, userId: user.id });
     }
-  }, [post, postId, trackView, user])
+  }, [post, postId, trackView, user]);
 
   if (post === undefined) {
     return (
@@ -55,7 +68,7 @@ export default function PostPage() {
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
       </div>
-    )
+    );
   }
 
   if (!post) {
@@ -73,16 +86,16 @@ export default function PostPage() {
           </Card>
         </div>
       </div>
-    )
+    );
   }
 
   const authorInitials = post.author?.displayName
     ? post.author.displayName
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-    : "U"
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : "U";
 
   return (
     <div className="min-h-screen bg-background">
@@ -94,33 +107,38 @@ export default function PostPage() {
         </Button>
 
         {/* IMAGE DISPLAY SECTION */}
+        
+        <DebugJson data={imageUrls} />
 
         <div className="relative w-full h-64 md:h-96 rounded-sm overflow-hidden mb-6">
-          {hasImages ? <Carousel className="w-full">
-            <CarouselContent className="-ml-1">
-              {imageUrls.map((imgURL, index) => (
-                <CarouselItem key={index} className="pl-1">
-                  <div className="relative w-full h-64 md:h-96 rounded-sm overflow-hidden mb-6">
-                    <Image
-                      src={imgURL || "/placeholder.svg"}
-                      alt={post.title}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                      priority // preload since it's above the fold
-                    />
-                  </div>
-
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel> : (
+          {hasImages ? (
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-1">
+                {imageUrls.map((imgURL, index) => (
+                  <CarouselItem key={index} className="pl-1">
+                    <div className="relative w-full h-64 md:h-96 rounded-sm overflow-hidden mb-6">
+                      <Image
+                        src={imgURL || "/placeholder.svg"}
+                        alt={post.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                        priority // preload since it's above the fold
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ) : (
             <div className="flex h-full w-full items-center justify-center bg-muted">
               <div className="flex flex-col items-center justify-center text-muted-foreground">
                 <ImageOff className="h-12 w-12 mb-2 opacity-60" />
-                <span className="text-xs font-medium uppercase tracking-wider">Image Unavailable</span>
+                <span className="text-xs font-medium uppercase tracking-wider">
+                  Image Unavailable
+                </span>
               </div>
             </div>
           )}
@@ -187,10 +205,12 @@ export default function PostPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <LikeButton postId={post._id} initialCount={post.likeCount} />
-                <FavoriteButton postId={post._id} initialCount={post.favoriteCount} />
+                <FavoriteButton
+                  postId={post._id}
+                  initialCount={post.favoriteCount}
+                />
               </div>
             </div>
-
 
             {post.content && (
               <section className="mt-8 bg-neutral-50/50">
@@ -202,7 +222,6 @@ export default function PostPage() {
 
         {/* Post content */}
 
-
         {/* Contact information */}
         {post.contactInfo && (
           <Card className="mb-6">
@@ -210,7 +229,9 @@ export default function PostPage() {
               <CardTitle className="text-lg">Contact Information</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="whitespace-pre-wrap text-sm font-mono p-3 bg-muted rounded-md">{post.contactInfo}</div>
+              <div className="whitespace-pre-wrap text-sm font-mono p-3 bg-muted rounded-md">
+                {post.contactInfo}
+              </div>
             </CardContent>
           </Card>
         )}
@@ -219,5 +240,5 @@ export default function PostPage() {
         <CommentSection postId={post._id} />
       </div>
     </div>
-  )
+  );
 }

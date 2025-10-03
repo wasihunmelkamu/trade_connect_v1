@@ -1,17 +1,31 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Users, Package, MessageSquare, Star, TrendingUp, Shield, Zap } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { StatsSection } from "@/components/StatsSection"
-import { AuthNav } from "@/components/auth-nav"
-import { useAuth } from "@/lib/auth-context"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  Users,
+  Package,
+  MessageSquare,
+  Star,
+  TrendingUp,
+  Shield,
+  Zap,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { StatsSection } from "@/components/StatsSection";
+import { AuthNav } from "@/components/auth-nav";
+import { useAuth } from "@/lib/auth-context";
 
 export default function HomePage() {
-  const { user, isLoading } = useAuth()
+  const { user, isLoading } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
@@ -22,21 +36,38 @@ export default function HomePage() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <div className="h-8 w-8 rounded-lg flex items-center justify-center">
-                  <Image src="/logo.png" alt="MarketConnect Logo" width={24} height={24} className="h-6 w-6" />
+                  <Image
+                    src="/logo.png"
+                    alt="MarketConnect Logo"
+                    width={24}
+                    height={24}
+                    className="h-12 w-16"
+                  />
                 </div>
-                <span className="font-bold text-xl text-foreground">MarketConnect</span>
+                <span className="font-bold text-xl text-foreground">
+                  MarketConnect
+                </span>
               </div>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Home
               </Link>
-              
-              <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+
+              <Link
+                href="/about"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 About
               </Link>
-              <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/contact"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Contact
               </Link>
             </nav>
@@ -59,8 +90,9 @@ export default function HomePage() {
               <span className="text-primary">Consumers</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
-              Join the most trusted marketplace platform connecting suppliers with consumers. Post products, discover
-              demands, and build lasting business relationships.
+              Join the most trusted marketplace platform connecting suppliers
+              with consumers. Post products, discover demands, and build lasting
+              business relationships.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -85,7 +117,11 @@ export default function HomePage() {
                         </Link>
                       )}
                       <Link href="/marketplace">
-                        <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          className="text-lg px-8 bg-transparent"
+                        >
                           Browse Products
                         </Button>
                       </Link>
@@ -93,15 +129,9 @@ export default function HomePage() {
                   ) : (
                     // Non-authenticated user buttons
                     <>
-                      <Link href="/auth/sign-in?redirect=/sell">
+                      <Link href="/auth/sign-up">
                         <Button size="lg" className="text-lg px-8">
-                          Start Selling
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </Link>
-                      <Link href="/marketplace">
-                        <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                          Browse Products
+                          Get Started
                         </Button>
                       </Link>
                     </>
@@ -117,9 +147,12 @@ export default function HomePage() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Everything You Need to Trade</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Everything You Need to Trade
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our platform provides all the tools suppliers and consumers need to connect and grow their business.
+              Our platform provides all the tools suppliers and consumers need
+              to connect and grow their business.
             </p>
           </div>
 
@@ -131,31 +164,34 @@ export default function HomePage() {
                 </div>
                 <CardTitle>Post Products</CardTitle>
                 <CardDescription>
-                  Suppliers can easily list their products with detailed descriptions, images, and pricing.
+                  Suppliers can easily list their products with detailed
+                  descriptions, images, and pricing.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-secondary" />
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Post Demands</CardTitle>
                 <CardDescription>
-                  Consumers can post their requirements and receive tailored offers from suppliers.
+                  Consumers can post their requirements and receive tailored
+                  offers from suppliers.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                  <MessageSquare className="h-6 w-6 text-accent" />
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <MessageSquare className="h-6 w-6 text-primary"/>
                 </div>
                 <CardTitle>Real-time Chat</CardTitle>
                 <CardDescription>
-                  Communicate directly with trading partners through our integrated messaging system.
+                  Communicate directly with trading partners through our
+                  integrated messaging system.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -167,31 +203,34 @@ export default function HomePage() {
                 </div>
                 <CardTitle>Ratings & Reviews</CardTitle>
                 <CardDescription>
-                  Build trust with transparent ratings and reviews from verified trading partners.
+                  Build trust with transparent ratings and reviews from verified
+                  trading partners.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
-                  <Shield className="h-6 w-6 text-secondary" />
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Secure Trading</CardTitle>
                 <CardDescription>
-                  Trade with confidence using our secure platform with verified user profiles.
+                  Trade with confidence using our secure platform with verified
+                  user profiles.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                  <TrendingUp className="h-6 w-6 text-accent" />
+                <div className="h-12  w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <TrendingUp className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Analytics</CardTitle>
                 <CardDescription>
-                  Track your performance with detailed analytics and insights on your listings.
+                  Track your performance with detailed analytics and insights on
+                  your listings.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -203,7 +242,6 @@ export default function HomePage() {
       <StatsSection />
 
       {/* CTA Section */}
-     
 
       {/* Footer */}
       <footer className="py-12 bg-background border-t border-border">
@@ -212,21 +250,32 @@ export default function HomePage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="h-8 w-8 rounded-lg flex items-center justify-center">
-                  <Image src="/logo.png" alt="MarketConnect Logo" width={24} height={24} className="h-6 w-6" />
+                  <Image
+                    src="/logo.png"
+                    alt="MarketConnect Logo"
+                    width={24}
+                    height={24}
+                    className="h-12 w-16"
+                  />
                 </div>
-                <span className="font-bold text-xl text-foreground">MarketConnect</span>
+                <span className="font-bold text-xl text-foreground">
+                  MarketConnect
+                </span>
               </div>
               <p className="text-muted-foreground">
-                Connecting suppliers and consumers worldwide through our trusted marketplace platform.
+                Connecting suppliers and consumers worldwide through our trusted
+                marketplace platform.
               </p>
             </div>
 
             <div>
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
-                
                 <li>
-                  <Link href="/categories" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/categories"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Categories
                   </Link>
                 </li>
@@ -237,16 +286,21 @@ export default function HomePage() {
               <h3 className="font-semibold text-foreground mb-4">Support</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <Link href="/help" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Help Center
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/contact"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Contact Us
                   </Link>
                 </li>
-                
               </ul>
             </div>
 
@@ -254,12 +308,18 @@ export default function HomePage() {
               <h3 className="font-semibold text-foreground mb-4">Company</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <Link href="/about" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/about"
+                    className="hover:text-foreground transition-colors"
+                  >
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/careers"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Careers
                   </Link>
                 </li>
@@ -271,17 +331,25 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="text-center md:text-left text-muted-foreground">
                 <p>&copy; 2025 MarketConnect. All rights reserved.</p>
-                <p className="text-sm mt-1">Secure trading platform with SSL encryption</p>
+                <p className="text-sm mt-1">
+                  Secure trading platform with SSL encryption
+                </p>
               </div>
               <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                 <span className="flex items-center">
                   <Shield className="h-4 w-4 mr-1 text-green-600" />
                   SSL Secured
                 </span>
-                <Link href="/compliance" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/compliance"
+                  className="hover:text-foreground transition-colors"
+                >
                   Compliance
                 </Link>
-                <Link href="/accessibility" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/accessibility"
+                  className="hover:text-foreground transition-colors"
+                >
                   Accessibility
                 </Link>
               </div>
@@ -290,5 +358,5 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

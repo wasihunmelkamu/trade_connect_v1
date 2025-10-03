@@ -35,14 +35,14 @@ export function StatsSection() {
             <div className="text-sm text-green-600 mt-2">↗ Growing daily</div>
           </div>
           <div className="bg-background rounded-lg p-8 shadow-sm">
-            <div className="text-4xl md:text-5xl font-bold text-secondary mb-2">
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {formatNumber(stats.productsListed)}
             </div>
             <div className="text-lg text-muted-foreground">Products Listed</div>
             <div className="text-sm text-green-600 mt-2">↗ Updated live</div>
           </div>
           <div className="bg-background rounded-lg p-8 shadow-sm">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {formatNumber(stats.successfulConnections)}
             </div>
             <div className="text-lg text-muted-foreground">Successful Connections</div>

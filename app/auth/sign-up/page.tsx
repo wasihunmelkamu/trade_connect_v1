@@ -20,7 +20,6 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signUpAction } from "@/actions/auth";
-
 // ✅ Schema: relaxed for dev, but still validated
 const signupSchema = z
   .object({
@@ -64,7 +63,6 @@ export default function SignupPage() {
         toast.error(res.message)
         return;
       }
-
       toast.success("✅ Welcome to TradeConnect!");
       router.push("/auth/sign-in"); // sign-in page
     })
