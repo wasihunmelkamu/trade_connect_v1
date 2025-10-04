@@ -71,13 +71,12 @@ export default function HomePage() {
                 Contact
               </Link>
             </nav>
-
             <AuthNav />
           </div>
         </div>
       </header>
-
       {/* Hero Section */}
+      
       <section className="py-20 lg:py-32 bg-gradient-to-br from-background to-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -237,7 +236,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
       <StatsSection />
 
@@ -267,7 +265,6 @@ export default function HomePage() {
                 marketplace platform.
               </p>
             </div>
-
             <div>
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
