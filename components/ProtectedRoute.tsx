@@ -18,7 +18,7 @@ export function ProtectedRoute({
   children,
   requireAuth = true,
   requiredUserType,
-  redirectTo = "/auth/signin",
+  redirectTo = "/auth/sign-in",
 }: ProtectedRouteProps) {
   const { user, isLoading } = useAuth()
   const router = useRouter()
@@ -27,17 +27,7 @@ export function ProtectedRoute({
     if (!isLoading) {
       if (requireAuth && !user) {
         router.push(redirectTo)
-        return
-      }
-
-      if (requiredUserType && user && user.type !== requiredUserType) {
-        // Redirect to appropriate page based on user type
-        if (user.type === "supplier") {
-          router.push("/sell")
-        } else {
-          router.push("/marketplace")
-        }
-        return
+      
       }
     }
   }, [user, isLoading, requireAuth, requiredUserType, router, redirectTo])
@@ -47,7 +37,7 @@ export function ProtectedRoute({
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading...</p>
+          <p className="text-muted-foreground"></p>
         </div>
       </div>
     )

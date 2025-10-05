@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -17,7 +23,7 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
-  })
+  });
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -25,7 +31,7 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
-  })
+  });
 
   const validateForm = () => {
     const newErrors = {
@@ -34,58 +40,67 @@ export default function ContactPage() {
       email: "",
       subject: "",
       message: "",
-    }
+    };
 
-    let isValid = true
+    let isValid = true;
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required"
-      isValid = false
+      newErrors.firstName = "First name is required";
+      isValid = false;
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required"
-      isValid = false
+      newErrors.lastName = "Last name is required";
+      isValid = false;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      isValid = false
+      newErrors.email = "Email is required";
+      isValid = false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
-      isValid = false
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = "Subject is required"
-      isValid = false
+      newErrors.subject = "Subject is required";
+      isValid = false;
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Message is required"
-      isValid = false
+      newErrors.message = "Message is required";
+      isValid = false;
     }
 
-    setErrors(newErrors)
-    return isValid
-  }
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = () => {
     if (validateForm()) {
-      const mailtoLink = `mailto:support@marketconnect.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-        `From: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-      )}`
+      const mailtoLink = `mailto:support@marketconnect.com?subject=${encodeURIComponent(
+        formData.subject
+      )}&body=${encodeURIComponent(
+        `From: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )}`;
 
-      window.location.href = mailtoLink
+      window.location.href = mailtoLink;
     }
-  }
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  };
 
   const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [field]: "" }))
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -104,16 +119,24 @@ export default function ContactPage() {
                     className="h-6 w-6"
                   />
                 </div>
-                <span className="font-bold text-xl text-foreground">MarketConnect</span>
+                <span className="font-bold text-xl text-foreground">
+                  MarketConnect
+                </span>
               </div>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Home
               </Link>
 
-              <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/about"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 About
               </Link>
               <Link href="/contact" className="text-foreground font-medium">
@@ -148,7 +171,8 @@ export default function ContactPage() {
               <span className="text-primary"> Help</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
-              Have questions about MarketConnect? Need support with your account? Our team is ready to assist you.
+              Have questions about MarketConnect? Need support with your
+              account? Our team is ready to assist you.
             </p>
           </div>
         </div>
@@ -162,25 +186,40 @@ export default function ContactPage() {
             <Card className="border-border">
               <CardHeader>
                 <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                <CardDescription>Fill out the form below and we'll get back to you within 24 hours.</CardDescription>
+                <CardDescription>
+                  Fill out the form below and we'll get back to you within 24
+                  hours.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label htmlFor="firstName" className="text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="firstName"
+                      className="text-sm font-medium text-foreground"
+                    >
                       First Name <span className="text-destructive">*</span>
                     </label>
                     <Input
                       id="firstName"
                       placeholder="John"
                       value={formData.firstName}
-                      onChange={(e) => handleChange("firstName", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("firstName", e.target.value)
+                      }
                       className={errors.firstName ? "border-destructive" : ""}
                     />
-                    {errors.firstName && <p className="text-sm text-destructive">{errors.firstName}</p>}
+                    {errors.firstName && (
+                      <p className="text-sm text-destructive">
+                        {errors.firstName}
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="lastName" className="text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="lastName"
+                      className="text-sm font-medium text-foreground"
+                    >
                       Last Name <span className="text-destructive">*</span>
                     </label>
                     <Input
@@ -190,11 +229,18 @@ export default function ContactPage() {
                       onChange={(e) => handleChange("lastName", e.target.value)}
                       className={errors.lastName ? "border-destructive" : ""}
                     />
-                    {errors.lastName && <p className="text-sm text-destructive">{errors.lastName}</p>}
+                    {errors.lastName && (
+                      <p className="text-sm text-destructive">
+                        {errors.lastName}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Email <span className="text-destructive">*</span>
                   </label>
                   <Input
@@ -205,10 +251,15 @@ export default function ContactPage() {
                     onChange={(e) => handleChange("email", e.target.value)}
                     className={errors.email ? "border-destructive" : ""}
                   />
-                  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  {errors.email && (
+                    <p className="text-sm text-destructive">{errors.email}</p>
+                  )}
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="subject"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Subject <span className="text-destructive">*</span>
                   </label>
                   <Input
@@ -218,20 +269,29 @@ export default function ContactPage() {
                     onChange={(e) => handleChange("subject", e.target.value)}
                     className={errors.subject ? "border-destructive" : ""}
                   />
-                  {errors.subject && <p className="text-sm text-destructive">{errors.subject}</p>}
+                  {errors.subject && (
+                    <p className="text-sm text-destructive">{errors.subject}</p>
+                  )}
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="message"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Message <span className="text-destructive">*</span>
                   </label>
                   <Textarea
                     id="message"
                     placeholder="Tell us more about your inquiry..."
-                    className={`min-h-[120px] ${errors.message ? "border-destructive" : ""}`}
+                    className={`min-h-[120px] ${
+                      errors.message ? "border-destructive" : ""
+                    }`}
                     value={formData.message}
                     onChange={(e) => handleChange("message", e.target.value)}
                   />
-                  {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
+                  {errors.message && (
+                    <p className="text-sm text-destructive">{errors.message}</p>
+                  )}
                 </div>
                 <Button onClick={handleSubmit} className="w-full">
                   Send Message
@@ -243,9 +303,12 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-foreground mb-6">Contact Information</h2>
+                <h2 className="text-3xl font-bold text-foreground mb-6">
+                  Contact Information
+                </h2>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Reach out to us through any of these channels. We're here to help you succeed.
+                  Reach out to us through any of these channels. We're here to
+                  help you succeed.
                 </p>
               </div>
               <div className="space-y-6">
@@ -256,7 +319,9 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground">Email</h3>
-                      <p className="text-muted-foreground">support@marketconnect.com</p>
+                      <p className="text-muted-foreground">
+                        support@marketconnect.com
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -294,7 +359,9 @@ export default function ContactPage() {
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">Business Hours</h3>
+                      <h3 className="font-semibold text-foreground">
+                        Business Hours
+                      </h3>
                       <p className="text-muted-foreground">
                         Monday - Friday: 9:00 AM - 6:00 PM
                         <br />
@@ -313,7 +380,9 @@ export default function ContactPage() {
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Frequently Asked Questions
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Quick answers to common questions about MarketConnect.
             </p>
@@ -322,39 +391,49 @@ export default function ContactPage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-lg">How do I create an account?</CardTitle>
+                <CardTitle className="text-lg">
+                  How do I create an account?
+                </CardTitle>
                 <CardDescription>
-                  Click "Get Started" and choose whether you're a supplier or consumer. Fill out the registration form
-                  and verify your email.
+                  Click "Get Started" and choose whether you're a supplier or
+                  consumer. Fill out the registration form and verify your
+                  email.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-lg">Is MarketConnect free to use?</CardTitle>
+                <CardTitle className="text-lg">
+                  Is MarketConnect free to use?
+                </CardTitle>
                 <CardDescription>
-                  Basic features are free. We charge a small commission on successful transactions to maintain the
-                  platform.
+                  Basic features are free. We charge a small commission on
+                  successful transactions to maintain the platform.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-lg">How do I verify my business?</CardTitle>
+                <CardTitle className="text-lg">
+                  How do I verify my business?
+                </CardTitle>
                 <CardDescription>
-                  Upload your business documents in your profile settings. Our team will review and verify within 2-3
-                  business days.
+                  Upload your business documents in your profile settings. Our
+                  team will review and verify within 2-3 business days.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-lg">What payment methods do you accept?</CardTitle>
+                <CardTitle className="text-lg">
+                  What payment methods do you accept?
+                </CardTitle>
                 <CardDescription>
-                  We support major credit cards, bank transfers, and digital wallets. Payment methods vary by region.
+                  We support major credit cards, bank transfers, and digital
+                  wallets. Payment methods vary by region.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -377,10 +456,13 @@ export default function ContactPage() {
                     className="h-6 w-6"
                   />
                 </div>
-                <span className="font-bold text-xl text-foreground">MarketConnect</span>
+                <span className="font-bold text-xl text-foreground">
+                  MarketConnect
+                </span>
               </div>
               <p className="text-muted-foreground">
-                Connecting suppliers and consumers worldwide through our trusted marketplace platform.
+                Connecting suppliers and consumers worldwide through our trusted
+                marketplace platform.
               </p>
             </div>
 
@@ -388,22 +470,34 @@ export default function ContactPage() {
               <h3 className="font-semibold text-foreground mb-4">Platform</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <Link href="/marketplace" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/marketplace"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Marketplace
                   </Link>
                 </li>
                 <li>
-                  <Link href="/categories" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/categories"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Categories
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/search"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Search
                   </Link>
                 </li>
                 <li>
-                  <Link href="/mobile-app" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/mobile-app"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Mobile App
                   </Link>
                 </li>
@@ -414,22 +508,34 @@ export default function ContactPage() {
               <h3 className="font-semibold text-foreground mb-4">Support</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <Link href="/help" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Help Center
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/contact"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Contact Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/safety" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/safety"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Safety
                   </Link>
                 </li>
                 <li>
-                  <Link href="/guidelines" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/guidelines"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Guidelines
                   </Link>
                 </li>
@@ -439,22 +545,34 @@ export default function ContactPage() {
               <h3 className="font-semibold text-foreground mb-4">Company</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <Link href="/about" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/about"
+                    className="hover:text-foreground transition-colors"
+                  >
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/careers"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Careers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/press" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/press"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Press
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/blog"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Blog
                   </Link>
                 </li>
@@ -468,5 +586,5 @@ export default function ContactPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
