@@ -1,7 +1,6 @@
 import { GenericId, v } from "convex/values"
 import { mutation, query } from "./_generated/server"
 import { getAuthUserId } from "@convex-dev/auth/server"
-
 // Check if user is admin
 const requireAdmin = async (ctx: any) => {
   const userId = await getAuthUserId(ctx)
@@ -18,7 +17,6 @@ const requireAdmin = async (ctx: any) => {
 
   return { userId, userProfile }
 }
-
 // Get platform analytics
 export const getPlatformAnalytics = query({
   args: {},
@@ -36,7 +34,6 @@ export const getPlatformAnalytics = query({
       ctx.db.query("comments").collect(),
       ctx.db.query("views").collect(),
     ])
-
     // Get recent activity
     const [recentUsers, recentPosts, recentComments, recentViews] = await Promise.all([
       ctx.db
@@ -186,7 +183,6 @@ export const getAllPostsForAdmin = query({
     return postsWithAuthors
   },
 })
-
 // Toggle post featured status
 export const togglePostFeatured = mutation({
   args: { postId: v.id("posts") },
@@ -226,13 +222,11 @@ export const toggleUserVerification = mutation({
     return !userProfile.isVerified
   },
 })
-
 // Delete post (admin)
 export const deletePostAsAdmin = mutation({
   args: { postId: v.id("posts") },
   handler: async (ctx, args) => {
     // await requireAdmin(ctx)
-
     const post = await ctx.db.get(args.postId)
     if (!post) throw new Error("Post not found")
 
@@ -305,7 +299,6 @@ export const getRecentActivity = query({
         timestamp: post.createdAt,
       })
     }
-
     // Get recent users
     const recentUsers = await ctx.db
       .query("profiles")

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "brainy-spider-664.convex.cloud",
+        hostname: "mild-bison-734.convex.cloud",
         port: "",
         pathname: "/api/storage/**",
       },
